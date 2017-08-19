@@ -22,13 +22,13 @@ public class LogProducer {
         Producer<String, String> producer = new KafkaProducer<String, String>(props);
 
         try {
-            FileInputStream fstream = new FileInputStream("/home/clio/Desktop/access_log");
+            FileInputStream fstream = new FileInputStream("./src/main/resources/apache_test.log");
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
             String strLine;
             /* read log line by line */
             while ((strLine = br.readLine()) != null) {
                 //instead of KeyedMessage, the new Kafka API requires ProducerRecord
-                ProducerRecord<String, String> data = new ProducerRecord<String, String>("access_log", strLine);
+                ProducerRecord<String, String> data = new ProducerRecord<String, String>("apache_test", strLine);
                 producer.send(data);
                 System.out.println("Logs were successfully written in Kafka.");
             }
