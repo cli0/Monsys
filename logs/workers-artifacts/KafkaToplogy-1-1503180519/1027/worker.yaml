@@ -1,0 +1,4 @@
+worker-id: 2fca5aea-16a6-41f5-ba98-824e017c0c44
+logs.users: []
+logs.groups: []
+topology.submitter.user: clio

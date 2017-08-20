@@ -108,6 +108,19 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- Elasticsearch -->
+		<dependency>
+  			<groupId>org.elasticsearch</groupId>
+  			<artifactId>elasticsearch-hadoop</artifactId>
+  			<version>6.0.0-alpha2</version>
+		</dependency>
+	    <!-- Storm native elastic library, not compatible with ES 5.X 
+		<dependency>
+		    <groupId>org.apache.storm</groupId>
+		    <artifactId>storm-elasticsearch</artifactId>
+		    <version>1.1.0</version>
+		</dependency>-->
+
         <!--Other Dependencies -->
         <dependency>
             <groupId>com.yammer.metrics</groupId>
@@ -155,7 +168,47 @@
 		    <artifactId>log4j-core</artifactId>
 		    <version>2.8.2</version>
 		</dependency>
-	
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20170516</version>
+		</dependency>
+		<dependency>
+    		<groupId>commons-logging</groupId>
+    		<artifactId>commons-logging</artifactId>
+    		<version>1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.objenesis</groupId>
+		    <artifactId>objenesis</artifactId>
+		    <version>2.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.esotericsoftware.minlog</groupId>
+		    <artifactId>minlog</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.codehaus.jackson</groupId>
+    		<artifactId>jackson-mapper-asl</artifactId>
+    		<version>1.9.13</version>
+		</dependency>
+		<dependency>
+    		<groupId>commons-io</groupId>
+    		<artifactId>commons-io</artifactId>
+    		<version>2.4</version>
+		</dependency>
+		<dependency>
+ 		    <groupId>commons-httpclient</groupId>
+   		    <artifactId>commons-httpclient</artifactId>
+  		    <version>3.1</version>
+		</dependency>
+		
   </dependencies>
   
   <build>

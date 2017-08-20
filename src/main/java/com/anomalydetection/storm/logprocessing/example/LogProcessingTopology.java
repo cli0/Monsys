@@ -1,5 +1,8 @@
 package com.anomalydetection.storm.logprocessing.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
@@ -11,6 +14,7 @@ import org.apache.storm.kafka.StringScheme;
 import org.apache.storm.kafka.ZkHosts;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
+import org.elasticsearch.storm.EsBolt;
 
 public class LogProcessingTopology {
 	  public static void main(String[] args) throws Exception {
@@ -29,6 +33,15 @@ public class LogProcessingTopology {
 
 	    // Now we create the topology
 	    TopologyBuilder builder = new TopologyBuilder();
+	    
+	    
+	    Map config = new HashMap();
+	    config.put("es.index.autocreate", true);
+	    config.put("es.resource", "logs/record");
+	    config.put("es.nodes", "10.0.4.70");
+	    config.put("es.storm.bolt.write.ack", false);
+	    config.put("es.storm.bolt.flush.entries.size", 100);
+	    config.put("es.storm.bolt.tick.tuple.flush", 2);
 
 	    // set the kafka spout class
 	    builder.setSpout("KafkaSpout", new KafkaSpout(kafkaConfig), 1);
@@ -36,7 +49,8 @@ public class LogProcessingTopology {
 	    builder.setBolt("IpToInformation", new UserInformationBolt("./src/main/resources/GeoLiteCity.dat"), 1)
 	        .globalGrouping("LogSplitter");
 	    builder.setBolt("Keyword", new KeywordBolt(), 1).globalGrouping("IpToInformation");
-	    builder.setBolt("Printer", new PrinterBolt(), 1).globalGrouping("Keyword");
+	    builder.setBolt("ESpersistence", new EsBolt("logs/record", config), 1).globalGrouping("Keyword");
+	    //builder.setBolt("Printer", new PrinterBolt(), 1).globalGrouping("Keyword"); <-- testing bolt, keep it for a while
 
 	    /*if (args != null && args.length > 0) {
 	      // Run the topology on remote cluster.

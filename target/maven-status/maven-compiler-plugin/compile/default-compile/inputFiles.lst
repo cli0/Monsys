@@ -8,3 +8,4 @@
 /home/clio/Working Directory/Eclipse/storm/src/main/java/com/anomalydetection/storm/logprocessing/example/LogSplitterBolt.java
 /home/clio/Working Directory/Eclipse/storm/src/main/java/com/anomalydetection/storm/logprocessing/example/KeywordExtractor.java
 /home/clio/Working Directory/Eclipse/storm/src/main/java/com/anomalydetection/storm/logprocessing/example/IpToInformation.java
+/home/clio/Working Directory/Eclipse/storm/src/main/java/com/anomalydetection/storm/logprocessing/example/LogMapper.java
