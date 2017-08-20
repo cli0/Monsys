@@ -6,6 +6,7 @@
 
 # Folders
 .settings/
+.project
 target/
 logs/
 
