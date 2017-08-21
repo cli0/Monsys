@@ -1,18 +1,13 @@
-//package com.anomalydetection.storm;
+package com.anomalydetection.storm;
 //
-//import org.json.*;
-//
-//public class Test {
-//
-//	public static void main(String[] args) {
-//		
-//		JSONObject source = null;
-//		try {
-//			source = new JSONObject().put("key", "value");
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		System.out.println(source);
-//	}
-//}
+import org.json.*;
+
+public class Test {
+	public static void main(String[] args) {
+		
+		String x = "dd-MM-yyyy:HH:mm:ss -0500";
+	    Object timestamp = x.split("\\s+")[0].replaceFirst(":", " ");
+
+		System.out.println(timestamp);
+	}
+}

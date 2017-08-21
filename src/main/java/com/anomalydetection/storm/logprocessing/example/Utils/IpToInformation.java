@@ -1,4 +1,4 @@
-package com.anomalydetection.storm.logprocessing.example;
+package com.anomalydetection.storm.logprocessing.example.Utils;
 
 import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
@@ -41,28 +41,15 @@ public class IpToInformation {
 	    return location.countryName;
 	  }
 	  
-	  public String ipToLatitude (String ip) {
+	  public String ipToGeo (String ip) {
 		    Location location = cl.getLocation(ip);
 		    if (location == null) {
 		      return "NA";
 		    }
-		    if (Double.isNaN(location.latitude)) {
+		    if (Double.isNaN(location.latitude) || (Double.isNaN(location.longitude))) {
 		      return "NA";
 		    }
-		    return location.latitude + "" ;
+		    return location.latitude + ", " + location.longitude;
 	  }
-	  
-	  
-	  public String ipToLongitude (String ip) {
-		    Location location = cl.getLocation(ip);
-		    if (location == null) {
-		      return "NA";
-		    }
-		    if (Double.isNaN(location.longitude)) {
-		      return "NA";
-		    }
-		    return location.longitude + "";
-	  }
-	  
-	  
-	}
+	    
+}

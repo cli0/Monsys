@@ -1,13 +1,12 @@
 package com.anomalydetection.storm.logprocessing.example;
 
+import com.anomalydetection.storm.logprocessing.example.Bolts.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
-import org.apache.storm.StormSubmitter;
-import org.apache.storm.generated.AlreadyAliveException;
-import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.kafka.KafkaSpout;
 import org.apache.storm.kafka.SpoutConfig;
 import org.apache.storm.kafka.StringScheme;
@@ -26,7 +25,7 @@ public class LogProcessingTopology {
 	    // Second argument is the topic name
 	    // Third argument is the zookeeper root for Kafka
 	    // Fourth argument is consumer group id
-	    SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "apache_test", "", "0");
+	    SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "apache_logs", "", "0");
 
 	    // Specify that the kafka messages are String
 	    kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
@@ -37,10 +36,10 @@ public class LogProcessingTopology {
 	    
 	    Map config = new HashMap();
 	    config.put("es.index.autocreate", true);
-	    config.put("es.resource", "logs/record");
+	    //config.put("es.resource", "apache_logs/record");
 	    config.put("es.nodes", "10.0.4.70");
 	    config.put("es.storm.bolt.write.ack", false);
-	    config.put("es.storm.bolt.flush.entries.size", 100);
+	    config.put("es.storm.bolt.flush.entries.size", 1000);
 	    config.put("es.storm.bolt.tick.tuple.flush", 2);
 
 	    // set the kafka spout class
@@ -49,8 +48,8 @@ public class LogProcessingTopology {
 	    builder.setBolt("IpToInformation", new UserInformationBolt("./src/main/resources/GeoLiteCity.dat"), 1)
 	        .globalGrouping("LogSplitter");
 	    builder.setBolt("Keyword", new KeywordBolt(), 1).globalGrouping("IpToInformation");
-	    builder.setBolt("ESpersistence", new EsBolt("logs/record", config), 1).globalGrouping("Keyword");
-	    //builder.setBolt("Printer", new PrinterBolt(), 1).globalGrouping("Keyword"); <-- testing bolt, keep it for a while
+	    builder.setBolt("ESpersistence", new EsBolt("apache_logs/record", config), 1).globalGrouping("Keyword");
+	    //builder.setBolt("Printer", new PrinterBolt(), 1).globalGrouping("Keyword"); //<-- testing bolt, keep it for a while
 
 	    /*if (args != null && args.length > 0) {
 	      // Run the topology on remote cluster.

@@ -1,7 +1,8 @@
-package com.anomalydetection.storm.logprocessing.example;
+package com.anomalydetection.storm.logprocessing.example.Bolts;
 
 import java.util.Map;
 
+import com.anomalydetection.storm.logprocessing.example.Utils.*;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -26,7 +27,7 @@ public class UserInformationBolt extends BaseRichBolt {
 	  public void declareOutputFields(OutputFieldsDeclarer declarer) {
 	    declarer.declare(new Fields("ip", "dateTime", "request", "response",
 	        "bytesSent", "referrer", "useragent", "country", "browser",
-	        "os", "latitude", "longitude"));
+	        "os", "geo"));
 	  }
 	  public void prepare(Map stormConf, TopologyContext context,
 	      OutputCollector collector) {
@@ -45,10 +46,12 @@ public class UserInformationBolt extends BaseRichBolt {
 	    Object browser = userAgentTools.getBrowser(input.getStringByField(
 	        "useragent").toString())[1];
 	    Object os = userAgentTools.getOS(input.getStringByField("useragent").toString())[1];
-	    Object latitude = ipToInformation.ipToLatitude(ip);
-	    Object longitude = ipToInformation.ipToLongitude(ip);
+	    Object geo = ipToInformation.ipToGeo(ip);
 	    
-	    collector.emit(new Values(input.getString(0), input.getString(1), input.getString(2), input.getString(3), input.getString(4), input.getString(5), input.getString(6), country, browser, os, latitude, longitude));
+	    //fix datetime format for elastic compatibility
+	    Object datetime = input.getString(1).split("\\s+")[0].replaceFirst(":", " ");
+	    
+	    collector.emit(new Values(input.getString(0), datetime, input.getString(2), input.getString(3), input.getString(4), input.getString(5), input.getString(6), country, browser, os, geo));
 
 	  }
 	}

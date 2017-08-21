@@ -1,9 +1,10 @@
-package com.anomalydetection.storm.logprocessing.example;
+package com.anomalydetection.storm.logprocessing.example.Bolts;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.anomalydetection.storm.logprocessing.example.Utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.OutputFieldsDeclarer;

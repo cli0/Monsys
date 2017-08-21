@@ -7,6 +7,7 @@
 # Folders
 .settings/
 .project
+.classpath
 target/
 logs/
 

@@ -1,4 +1,4 @@
-package com.anomalydetection.storm.logprocessing.example;
+package com.anomalydetection.storm.logprocessing.example.Utils;
 
 public class UserAgentTools {
 
