@@ -28,7 +28,7 @@ public class LogProducer {
             /* read log line by line */
             while ((strLine = br.readLine()) != null) {
                 //instead of KeyedMessage, the new Kafka API requires ProducerRecord
-                ProducerRecord<String, String> data = new ProducerRecord<String, String>("apache_logs", strLine);
+                ProducerRecord<String, String> data = new ProducerRecord<String, String>("apachelogs", strLine);
                 producer.send(data);
                 System.out.println("Logs were successfully written in Kafka.");
             }

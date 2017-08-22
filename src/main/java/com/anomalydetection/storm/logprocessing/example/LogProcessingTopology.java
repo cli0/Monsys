@@ -25,7 +25,7 @@ public class LogProcessingTopology {
 	    // Second argument is the topic name
 	    // Third argument is the zookeeper root for Kafka
 	    // Fourth argument is consumer group id
-	    SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "apache_logs", "", "0");
+	    SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "apachelogs", "", "0");
 
 	    // Specify that the kafka messages are String
 	    kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
@@ -48,8 +48,8 @@ public class LogProcessingTopology {
 	    builder.setBolt("IpToInformation", new UserInformationBolt("./src/main/resources/GeoLiteCity.dat"), 1)
 	        .globalGrouping("LogSplitter");
 	    builder.setBolt("Keyword", new KeywordBolt(), 1).globalGrouping("IpToInformation");
-	    builder.setBolt("ESpersistence", new EsBolt("apache_logs/record", config), 1).globalGrouping("Keyword");
-	    //builder.setBolt("Printer", new PrinterBolt(), 1).globalGrouping("Keyword"); //<-- testing bolt, keep it for a while
+	    //builder.setBolt("ESpersistence", new EsBolt("apache_logs/record", config), 1).globalGrouping("Keyword");
+	    builder.setBolt("Printer", new PrinterBolt(), 1).globalGrouping("Keyword"); //<-- testing bolt, keep it for a while
 
 	    /*if (args != null && args.length > 0) {
 	      // Run the topology on remote cluster.
@@ -69,7 +69,7 @@ public class LogProcessingTopology {
 	      Config conf = new Config();
 
 	      // Submit topology for execution
-	      cluster.submitTopology("KafkaToplogy", conf, builder.createTopology());
+	      cluster.submitTopology("KafkaTopology", conf, builder.createTopology());
 
 	      try {
 	        // Wait for some time before exiting
