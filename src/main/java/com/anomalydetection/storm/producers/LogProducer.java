@@ -13,7 +13,7 @@ public class LogProducer {
 
         //Configuration for connecting to Kafka
         Properties props = new Properties();
-        props.put("bootstrap.servers", "10.0.4.70:9092");
+        props.put("bootstrap.servers", "localhost:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");

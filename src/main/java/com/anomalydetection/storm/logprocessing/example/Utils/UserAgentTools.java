@@ -2,6 +2,8 @@ package com.anomalydetection.storm.logprocessing.example.Utils;
 
 public class UserAgentTools {
 
+//taken and adapted from https://github.com/ndt-project/ndt/blob/master/Applet/src/edu/internet2/ndt/UserAgentTools.java
+
 	public static String getFirstVersionNumber(String a_userAgent,
 			int a_position, int numDigits) {
 		String ver = getVersionNumber(a_userAgent, a_position);

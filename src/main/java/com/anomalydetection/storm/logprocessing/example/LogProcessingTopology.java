@@ -19,7 +19,7 @@ public class LogProcessingTopology {
 	  public static void main(String[] args) throws Exception {
 
 	    // zookeeper hosts for the Kafka cluster
-	    ZkHosts zkHosts = new ZkHosts("10.0.4.70:2181");
+	    ZkHosts zkHosts = new ZkHosts("localhost:2181");
 
 	    // Create the KafkaSpout configuartion
 	    // Second argument is the topic name
@@ -37,7 +37,7 @@ public class LogProcessingTopology {
 	    Map config = new HashMap();
 	    config.put("es.index.autocreate", true);
 	    //config.put("es.resource", "apache_logs/record");
-	    config.put("es.nodes", "10.0.4.70");
+	    config.put("es.nodes", "localhost");
 	    config.put("es.storm.bolt.write.ack", false);
 	    config.put("es.storm.bolt.flush.entries.size", 1000);
 	    config.put("es.storm.bolt.tick.tuple.flush", 2);
