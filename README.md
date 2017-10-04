@@ -1,8 +1,8 @@
 # Monsys
 
-This repository contains Kafka producers and Storm pipelines for log processing.
+This repository is an example that contains Kafka producers and Storm pipelines for apache log processing. 
 
-### The following is the mapping needed for elastic
+### The following is the mapping needed for elastic storage
 
 ```
 curl -XPUT 'http://localhost:9200/apache_logs?pretty' -H 'Content-Type: application/json' -d '{
